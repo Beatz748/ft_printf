@@ -8,7 +8,7 @@ int        ft_find_c(char *str)
 	int j;
 
 	i = 0;
-	s = "ds";
+	s = "dDiIsScCuUxXpPgGeEn";
 	while (str[i] != '\0')
 	{
 		j = 0;
@@ -36,11 +36,11 @@ void    ft_parse_all(char *format, va_list list)
 		if (format[i] == '%')
 		{
 			n = ft_find_c(format + i + 1);
-			rez = ft_parse_form(ft_strndup(format + i + 1, n + 1), list);
+			rez = ft_parse_form(ft_strndup(format + i + 1, n + 1), list, rez);
 			i += n + 1;
-			printf("%d", rez.width);
 		}
-		ft_putchar(format[i]);
+		else
+			ft_putchar(format[i]);
 		i++;
 	}
 }

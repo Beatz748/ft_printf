@@ -112,3 +112,118 @@ char	*ft_strcdup(const char *s, int c)
         copy[i] = s[i];
     return (copy);
 }
+
+char	*ft_strdup(const char *s1)
+{
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	while (s1[i])
+		i++;
+	ptr = malloc(i + 1);
+	if (!ptr)
+		return (0);
+	ft_memcpy(ptr, s1, i + 1);
+	return (ptr);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	int		i;
+	int		minus;
+
+	minus = 1;
+	i = ft_intlen(n);
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (n < 0)
+		minus = -1;
+	n *= minus;
+	if (!(str = malloc(sizeof(char ) * i + 1)))
+		return (NULL);
+	str[i--] = '\0';
+	if (n == 0)
+		str[0] = '0';
+	while (n != 0)
+	{
+		str[i] = n % 10 + '0';
+		n /= 10;
+		i--;
+	}
+	if (minus == -1)
+		str[0] = '-';
+	return (str);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	y;
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	y = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[y])
+		str[i++] = s2[y++];
+	str[i] = '\0';
+	return (str);
+}
+
+char *ft_itoa_16(long long int num)
+{
+  char *itoa16;
+  int size;
+  char *str;
+  long long int k;
+  
+  k = num;
+  size = 0;
+  itoa16 = "0123456789abcdef";
+  while (k /= 16)
+    size++;
+  size += 1;
+  str = (char *)malloc(sizeof(char) *  size + 3);
+  str[size + 2] = '\0';
+  while (size-- > 0)
+  {
+    str[size + 2] = itoa16[num % 16];
+    num /= 16;
+  }
+  str[0] = '0';
+  str[1] = 'x';
+  return (str);
+}
+
+char *ft_ito16(long long int num)
+{
+  char *itoa16;
+  int size;
+  char *str;
+  long long int k;
+  
+  k = num;
+  size = 0;
+  itoa16 = "0123456789abcdef";
+  while (k /= 16)
+    size++;
+  size += 1;
+  str = (char *)malloc(sizeof(char) *  size + 1);
+  str[size] = '\0';
+  while (size-- > 0)
+  {
+    str[size] = itoa16[num % 16];
+    num /= 16;
+  }
+  return (str);
+}
