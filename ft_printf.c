@@ -45,11 +45,12 @@ void    ft_parse_all(char *format, va_list list)
 	}
 }
 
-void    ft_printf(char *format, ...)
+int    ft_printf(char *format, ...)
 {
 	va_list list;
 
 	va_start(list, format);
 	ft_parse_all(format, list);
 	va_end(list);
+	return (1);
 }
