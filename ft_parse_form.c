@@ -20,7 +20,7 @@ int				ft_uintlen(unsigned int n)
 	return (count);
 }
 
-int				ft_intlen(long long n)
+int				ft_intlen(int n)
 {
 	int count;
 
@@ -74,11 +74,6 @@ info			ft_checking(char *str, info rez, char *main)
 	i = 0;
 	if (!(str = ft_strchr(str, '.')))
 		rez.accuracy = ft_strlen(main);
-	if (rez.accuracy < 0)
-	{
-		rez.accuracy = ft_strlen(main);
-		rez.minus = 1;
-	}
 	return (rez);
 }
 info			ft_getting_flags(char *str, info rez, int *i, va_list list)
@@ -124,9 +119,13 @@ info			ft_getting_flags(char *str, info rez, int *i, va_list list)
 	return (rez);
 }
 
+<<<<<<< HEAD
 
 
 int			ft_print_c(info rez, int c)
+=======
+void			ft_print_c(info rez, int c)
+>>>>>>> parent of aaee6bc... final pft done
 {
 	int i;
 
@@ -329,6 +328,7 @@ int			ft_print_uint(info rez, unsigned int mini, char *str2)
 	return (i + (int)ft_strlen(str));
 }
 
+<<<<<<< HEAD
 int			ft_print_per(info rez)
 {
 	int i;
@@ -362,6 +362,9 @@ int			ft_print_per(info rez)
 }
 
 int			ft_print_p(info rez, void* ptr)
+=======
+void			ft_print_p(info rez, void* ptr)
+>>>>>>> parent of aaee6bc... final pft done
 {
 	char *str;
 	int i;
@@ -389,6 +392,7 @@ info			ft_flags_check_x(info rez, char *num, char *str)
 		rez.nol = 0;
 	return (rez);
 }
+<<<<<<< HEAD
 
 char *ft_upperstr(char *str)
 {
@@ -404,58 +408,48 @@ char *ft_upperstr(char *str)
 	return (str);
 }
 int			ft_print_x(info rez, long long num, char *str_c)
+=======
+void			ft_print_x(info rez, int num, char *str_c)
+>>>>>>> parent of aaee6bc... final pft done
 {
 	char *str;
-	int j;
-	int i;
+	size_t j;
+	size_t i;
 
 	str = ft_ito16(num);
 	i = 0;
 	j = ft_strlen(str);
 	rez = ft_flags_check_x(rez, str, str_c);
-	j = ft_strlen(str);
-	if (rez.spec == 'X')
-		str = ft_upperstr(str);
-	if (rez.accuracy > j)
+	if (rez.accuracy > (int)j)
 		while (i < rez.accuracy - j)
 		{
 			str = ft_strjoin("0", str);
 			i++;
 			rez.nol = 0;
 		}
-	if (num < 0)
-		i++;
-	while (i < rez.width - j && rez.nol && !(ft_strchr(str_c, '.')))
+	i = 0;
+	while (i < rez.width - j && rez.nol)
 	{
 		str = ft_strjoin("0", str);
 		i++;
 	}
-	i = 0;
-	str = (num < 0) ? ft_strjoin("-", str) : str;
-	if (rez.plus && num >= 0 && rez.spec != 'u' && rez.spec != 'U')
-		str = ft_strjoin("+", str);
 	if (rez.width > (int)ft_strlen(str) && rez.minus)
 	{
-		if (rez.accuracy != 0)
-			ft_putstr(str);
-		else
-			ft_putchar(' ');
-		while (i++ < rez.width - (int)ft_strlen(str))
+		ft_putstr(str);
+		while (i++ < rez.width - ft_strlen(str))
 			ft_putchar(' ');
 	}
 	else if (rez.width > (int)ft_strlen(str) && !rez.minus)
 	{
-		while (i++ < rez.width - (int)ft_strlen(str))
+		while (i++ < rez.width - ft_strlen(str))
 			ft_putchar(' ');
-		if (rez.accuracy != 0)
-			ft_putstr(str);
-		else
-			ft_putchar(' ');
+		ft_putstr(str);
 	}
-	else if (rez.accuracy != 0)
+	else
 		ft_putstr(str);
 	return (i + (int)ft_strlen(str));
 }
+
 unsigned int	ft_get_u(int i)
 {
 	unsigned int j;
@@ -470,9 +464,13 @@ unsigned int	ft_get_u(int i)
 void		ft_var(info rez, va_list list, char *str, int *n)
 {
 	if (rez.spec == 'c' || rez.spec == 'C')
+<<<<<<< HEAD
 		*n = ft_print_c(rez, va_arg(list, int)) - 1;
 	else if (rez.spec == '%')
 		*n = ft_print_per(rez) - 1;
+=======
+		ft_print_c(rez, va_arg(list, int));
+>>>>>>> parent of aaee6bc... final pft done
 	else if (rez.spec == 's' || rez.spec == 'S')
 		*n = ft_print_str(rez, va_arg(list, char*), str) - 1;
 	else if (ft_strchr("DdIi", rez.spec))
@@ -482,7 +480,11 @@ void		ft_var(info rez, va_list list, char *str, int *n)
 	else if (rez.spec == 'p')
 		*n = ft_print_p(rez, va_arg(list, void*)) - 1;
 	else if (rez.spec == 'x' || rez.spec == 'X')
+<<<<<<< HEAD
 		*n = ft_print_x(rez, va_arg(list, long long), str) - 1;
+=======
+		ft_print_x(rez, va_arg(list, int), str);
+>>>>>>> parent of aaee6bc... final pft done
 	// if (rez.spec == 'n')
 	// 	ft_print_n(rez, list);
 	// if (ft_strchr("GgFfEe", rez.spec))
@@ -503,11 +505,6 @@ info			ft_parse_form(char *str, va_list list, info rez, int *n)
 	{
 		rez = ft_getting_flags(str, rez, ptr, list);
 		i++;
-	}
-	if (rez.width < 0)
-	{
-		rez.width = -rez.width;
-		rez.minus = 1;
 	}
 	ft_var(rez, list, str, n);
 
