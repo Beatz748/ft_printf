@@ -7,7 +7,7 @@ int        ft_find_c(char *str)
 	int j;
 
 	i = 0;
-	s = "dDiIsScCuUxXpPgGeEn";
+	s = "dDiIsScCu%UxXpPgGeEn";
 	while (str[i] != '\0')
 	{
 		j = 0;
