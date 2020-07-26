@@ -24,7 +24,7 @@ info    ft_parse_form(char *str, va_list list, info rez, int *n);
 
 int    ft_print_c(info rez, int c);
 
-char	*ft_itoa(int n);
+char	*ft_itoa(long long n);
 
 char	*ft_uitoa(unsigned int n);
 
