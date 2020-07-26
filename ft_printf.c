@@ -43,7 +43,7 @@ int			ft_parse_all(char *format, va_list list)
 			ft_putchar(format[i]);
 		i++;
 	}
-	return (i);
+	return (result);
 }
 
 int    ft_printf(char *format, ...)

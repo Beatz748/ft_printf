@@ -126,7 +126,7 @@ info			ft_getting_flags(char *str, info rez, int *i, va_list list)
 
 
 
-void			ft_print_c(info rez, int c)
+int			ft_print_c(info rez, int c)
 {
 	int i;
 
@@ -146,6 +146,7 @@ void			ft_print_c(info rez, int c)
 	}
 	else 
 		ft_putchar(c);
+	return (i + 1);
 }
 
 void			ft_flags_chek_int(info *rez, int j, char *str)
@@ -201,7 +202,7 @@ int			ft_print_str(info rez, char *str, char *for_check)
 	return (i + (int)ft_strlen(str));
 }
 
-void			ft_printp(info rez, char *str)
+int			ft_printp(info rez, char *str)
 {
 	int i;
 
@@ -220,8 +221,10 @@ void			ft_printp(info rez, char *str)
 	}
 	else 
 		ft_putstr(str);
+	return (i + (int)ft_strlen(str));
 }
-void			ft_print_int(info rez, int mini, char *str2)
+
+int			ft_print_int(info rez, int mini, char *str2)
 {
 	int i;
 	char *str;
@@ -232,6 +235,8 @@ void			ft_print_int(info rez, int mini, char *str2)
 	ft_flags_chek_int(&rez, mini, str2);
 	str = (mini < 0) ? str + 1 : str;
 	j = ft_strlen(str);
+		if (rez.accuracy < ft_intlen(mini))
+		rez.accuracy = ft_strlen(str);
 	if (rez.accuracy > j)
 		while (i < rez.accuracy - j)
 		{
@@ -268,11 +273,12 @@ void			ft_print_int(info rez, int mini, char *str2)
 		else
 			ft_putchar(' ');
 	}
-	else if (rez.accuracy != 0)
+	else 
 		ft_putstr(str);
+	return (i + (int)ft_strlen(str));
 }
 
-void			ft_print_uint(info rez, unsigned int mini, char *str2)
+int			ft_print_uint(info rez, unsigned int mini, char *str2)
 {
 	int i;
 	char *str;
@@ -282,6 +288,8 @@ void			ft_print_uint(info rez, unsigned int mini, char *str2)
 	str = ft_uitoa(mini);
 	ft_flags_chek_uint(&rez, mini, str2);
 	j = ft_strlen(str);
+		if (rez.accuracy < ft_intlen(mini))
+		rez.accuracy = ft_strlen(str);
 	if (rez.accuracy > j)
 		while (i < rez.accuracy - j)
 		{
@@ -316,11 +324,12 @@ void			ft_print_uint(info rez, unsigned int mini, char *str2)
 		else
 			ft_putchar(' ');
 	}
-	else if (rez.accuracy != 0)
+	else 
 		ft_putstr(str);
+	return (i + (int)ft_strlen(str));
 }
 
-void			ft_print_per(info rez)
+int			ft_print_per(info rez)
 {
 	int i;
 
@@ -349,9 +358,10 @@ void			ft_print_per(info rez)
 	}
 	else 
 		ft_putchar(c);
+	return (i + 1);
 }
 
-void			ft_print_p(info rez, void* ptr)
+int			ft_print_p(info rez, void* ptr)
 {
 	char *str;
 	int i;
@@ -366,6 +376,7 @@ void			ft_print_p(info rez, void* ptr)
 	else
 		str = ft_itoa_16((long long int) ptr);
 	ft_printp(rez, str);
+	return (i + (int)ft_strlen(str));
 }
 
 info			ft_flags_check_x(info rez, char *num, char *str)
@@ -392,7 +403,7 @@ char *ft_upperstr(char *str)
 	}
 	return (str);
 }
-void			ft_print_x(info rez, long long num, char *str_c)
+int			ft_print_x(info rez, long long num, char *str_c)
 {
 	char *str;
 	int j;
@@ -443,6 +454,7 @@ void			ft_print_x(info rez, long long num, char *str_c)
 	}
 	else if (rez.accuracy != 0)
 		ft_putstr(str);
+	return (i + (int)ft_strlen(str));
 }
 unsigned int	ft_get_u(int i)
 {
@@ -458,19 +470,19 @@ unsigned int	ft_get_u(int i)
 void		ft_var(info rez, va_list list, char *str, int *n)
 {
 	if (rez.spec == 'c' || rez.spec == 'C')
-		ft_print_c(rez, va_arg(list, int));
+		*n = ft_print_c(rez, va_arg(list, int)) - 1;
 	else if (rez.spec == '%')
-		ft_print_per(rez);
+		*n = ft_print_per(rez) - 1;
 	else if (rez.spec == 's' || rez.spec == 'S')
-		*n = ft_print_str(rez, va_arg(list, char*), str);
+		*n = ft_print_str(rez, va_arg(list, char*), str) - 1;
 	else if (ft_strchr("DdIi", rez.spec))
-		ft_print_int(rez, va_arg(list, int), str);
+		*n = ft_print_int(rez, va_arg(list, int), str) - 1;
 	else if (rez.spec == 'U' || rez.spec == 'u')
-		ft_print_uint(rez, ft_get_u(va_arg(list, int)), str);
+		*n = ft_print_uint(rez, ft_get_u(va_arg(list, int)), str) - 1;
 	else if (rez.spec == 'p')
-		ft_print_p(rez, va_arg(list, void*));
+		*n = ft_print_p(rez, va_arg(list, void*)) - 1;
 	else if (rez.spec == 'x' || rez.spec == 'X')
-		ft_print_x(rez, va_arg(list, long long), str);
+		*n = ft_print_x(rez, va_arg(list, long long), str) - 1;
 	// if (rez.spec == 'n')
 	// 	ft_print_n(rez, list);
 	// if (ft_strchr("GgFfEe", rez.spec))
