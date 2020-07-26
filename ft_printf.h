@@ -22,9 +22,9 @@ typedef struct    info_str
 
 info    ft_parse_form(char *str, va_list list, info rez, int *n);
 
-int    ft_print_c(info rez, int c);
+void    ft_print_c(info rez, int c);
 
-char	*ft_itoa(int n);
+char	*ft_itoa(long long n);
 
 char	*ft_uitoa(unsigned int n);
 
@@ -36,7 +36,7 @@ char    *ft_strchr(const char *s, int c);
 
 char	*ft_strjoin(char const *s1, char const *s2);
 
-int        ft_intlen(int n);
+int        ft_intlen(long long n);
 
 int        ft_uintlen(unsigned int n);
 
@@ -74,10 +74,6 @@ void		ft_putchar(char c);
 
 char        *ft_itoa_16(long long int num);
 
-<<<<<<< HEAD
-int		ft_print_x(info rez, long long num, char *str_c);
-=======
-void ft_print_x(info rez, int num, char *str_c);
->>>>>>> parent of aaee6bc... final pft done
+void		ft_print_x(info rez, long long num, char *str_c);
 
 #endif
