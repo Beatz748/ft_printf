@@ -150,7 +150,7 @@ char	*ft_uitoa(unsigned int n)
 	return (str);
 }
 
-char	*ft_itoa(long long n)
+char	*ft_itoa(int n)
 {
 	char	*str;
 	int		i;
