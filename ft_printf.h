@@ -14,10 +14,10 @@ typedef struct    info_str
     int        resh;
     int        minus;
     int        plus;
-    size_t        width;
+    int        width;
     char       spec;
     int        space;
-    size_t            accuracy;
+    int            accuracy;
 }                info;
 
 info    ft_parse_form(char *str, va_list list, info rez, int *n);
