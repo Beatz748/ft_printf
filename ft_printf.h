@@ -20,7 +20,7 @@ typedef struct    info_str
     size_t            accuracy;
 }                info;
 
-info    ft_parse_form(char *str, va_list list, info rez);
+info    ft_parse_form(char *str, va_list list, info rez, int *n);
 
 void    ft_print_c(info rez, int c);
 
@@ -52,7 +52,7 @@ size_t		ft_strlen(const char *s);
 
 int		ft_printf(char *format, ...);
 
-void		ft_parse_all(char *format, va_list list);
+int		ft_parse_all(char *format, va_list list);
 
 void		ft_spec(char *str, va_list list);
 
