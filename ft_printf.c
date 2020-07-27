@@ -28,22 +28,31 @@ int			ft_parse_all(char *format, va_list list)
 	int n;
 	int result;
 	info rez;
+	int a;
 
 	i = 0;
+	result = 0;
 	while (format[i] != '\0')
 	{
+		if (format[i] == ',')
+		{
+			a = 1;
+			a += 99;
+		}
 		if (format[i] == '%')
 		{
 			n = ft_find_c(format + i + 1);
 			rez = ft_parse_form(ft_strndup(format + i + 1, n + 1), list, rez, &result);
 			i += n + 1;
-			result += i;
 		}
 		else
+		{
 			ft_putchar(format[i]);
+			result++;
+		}
 		i++;
 	}
-	return (i);
+	return (result);
 }
 
 int    ft_printf(char *format, ...)

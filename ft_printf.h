@@ -22,7 +22,7 @@ typedef struct    info_str
 
 info    ft_parse_form(char *str, va_list list, info rez, int *n);
 
-void    ft_print_c(info rez, int c);
+int     ft_print_c(info rez, int c);
 
 char	*ft_itoa(long long n);
 
@@ -74,6 +74,6 @@ void		ft_putchar(char c);
 
 char        *ft_itoa_16(long long int num);
 
-void		ft_print_x(info rez, long long num, char *str_c);
+int		ft_print_x(info rez, long long num, char *str_c);
 
 #endif
