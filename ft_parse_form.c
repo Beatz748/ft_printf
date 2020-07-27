@@ -20,7 +20,7 @@ int				ft_uintlen(unsigned int n)
 	return (count);
 }
 
-int				ft_intlen(int n)
+int				ft_intlen(long long n)
 {
 	int count;
 
@@ -74,6 +74,11 @@ info			ft_checking(char *str, info rez, char *main)
 	i = 0;
 	if (!(str = ft_strchr(str, '.')))
 		rez.accuracy = ft_strlen(main);
+	if (rez.accuracy < 0)
+	{
+		rez.accuracy = ft_strlen(main);
+		rez.minus = 1;
+	}
 	return (rez);
 }
 info			ft_getting_flags(char *str, info rez, int *i, va_list list)
@@ -119,13 +124,9 @@ info			ft_getting_flags(char *str, info rez, int *i, va_list list)
 	return (rez);
 }
 
-<<<<<<< HEAD
 
 
-int			ft_print_c(info rez, int c)
-=======
 void			ft_print_c(info rez, int c)
->>>>>>> parent of aaee6bc... final pft done
 {
 	int i;
 
@@ -145,7 +146,6 @@ void			ft_print_c(info rez, int c)
 	}
 	else 
 		ft_putchar(c);
-	return (i + 1);
 }
 
 void			ft_flags_chek_int(info *rez, int j, char *str)
@@ -201,7 +201,7 @@ int			ft_print_str(info rez, char *str, char *for_check)
 	return (i + (int)ft_strlen(str));
 }
 
-int			ft_printp(info rez, char *str)
+void			ft_printp(info rez, char *str)
 {
 	int i;
 
@@ -220,10 +220,8 @@ int			ft_printp(info rez, char *str)
 	}
 	else 
 		ft_putstr(str);
-	return (i + (int)ft_strlen(str));
 }
-
-int			ft_print_int(info rez, int mini, char *str2)
+void			ft_print_int(info rez, int mini, char *str2)
 {
 	int i;
 	char *str;
@@ -234,8 +232,6 @@ int			ft_print_int(info rez, int mini, char *str2)
 	ft_flags_chek_int(&rez, mini, str2);
 	str = (mini < 0) ? str + 1 : str;
 	j = ft_strlen(str);
-		if (rez.accuracy < ft_intlen(mini))
-		rez.accuracy = ft_strlen(str);
 	if (rez.accuracy > j)
 		while (i < rez.accuracy - j)
 		{
@@ -272,12 +268,11 @@ int			ft_print_int(info rez, int mini, char *str2)
 		else
 			ft_putchar(' ');
 	}
-	else 
+	else if (rez.accuracy != 0)
 		ft_putstr(str);
-	return (i + (int)ft_strlen(str));
 }
 
-int			ft_print_uint(info rez, unsigned int mini, char *str2)
+void			ft_print_uint(info rez, unsigned int mini, char *str2)
 {
 	int i;
 	char *str;
@@ -287,8 +282,6 @@ int			ft_print_uint(info rez, unsigned int mini, char *str2)
 	str = ft_uitoa(mini);
 	ft_flags_chek_uint(&rez, mini, str2);
 	j = ft_strlen(str);
-		if (rez.accuracy < ft_intlen(mini))
-		rez.accuracy = ft_strlen(str);
 	if (rez.accuracy > j)
 		while (i < rez.accuracy - j)
 		{
@@ -323,13 +316,11 @@ int			ft_print_uint(info rez, unsigned int mini, char *str2)
 		else
 			ft_putchar(' ');
 	}
-	else 
+	else if (rez.accuracy != 0)
 		ft_putstr(str);
-	return (i + (int)ft_strlen(str));
 }
 
-<<<<<<< HEAD
-int			ft_print_per(info rez)
+void			ft_print_per(info rez)
 {
 	int i;
 
@@ -358,13 +349,9 @@ int			ft_print_per(info rez)
 	}
 	else 
 		ft_putchar(c);
-	return (i + 1);
 }
 
-int			ft_print_p(info rez, void* ptr)
-=======
 void			ft_print_p(info rez, void* ptr)
->>>>>>> parent of aaee6bc... final pft done
 {
 	char *str;
 	int i;
@@ -379,7 +366,6 @@ void			ft_print_p(info rez, void* ptr)
 	else
 		str = ft_itoa_16((long long int) ptr);
 	ft_printp(rez, str);
-	return (i + (int)ft_strlen(str));
 }
 
 info			ft_flags_check_x(info rez, char *num, char *str)
@@ -392,7 +378,6 @@ info			ft_flags_check_x(info rez, char *num, char *str)
 		rez.nol = 0;
 	return (rez);
 }
-<<<<<<< HEAD
 
 char *ft_upperstr(char *str)
 {
@@ -407,49 +392,58 @@ char *ft_upperstr(char *str)
 	}
 	return (str);
 }
-int			ft_print_x(info rez, long long num, char *str_c)
-=======
-void			ft_print_x(info rez, int num, char *str_c)
->>>>>>> parent of aaee6bc... final pft done
+void			ft_print_x(info rez, long long num, char *str_c)
 {
 	char *str;
-	size_t j;
-	size_t i;
+	int j;
+	int i;
 
 	str = ft_ito16(num);
 	i = 0;
 	j = ft_strlen(str);
 	rez = ft_flags_check_x(rez, str, str_c);
-	if (rez.accuracy > (int)j)
+	j = ft_strlen(str);
+	if (rez.spec == 'X')
+		str = ft_upperstr(str);
+	if (rez.accuracy > j)
 		while (i < rez.accuracy - j)
 		{
 			str = ft_strjoin("0", str);
 			i++;
 			rez.nol = 0;
 		}
-	i = 0;
-	while (i < rez.width - j && rez.nol)
+	if (num < 0)
+		i++;
+	while (i < rez.width - j && rez.nol && !(ft_strchr(str_c, '.')))
 	{
 		str = ft_strjoin("0", str);
 		i++;
 	}
+	i = 0;
+	str = (num < 0) ? ft_strjoin("-", str) : str;
+	if (rez.plus && num >= 0 && rez.spec != 'u' && rez.spec != 'U')
+		str = ft_strjoin("+", str);
 	if (rez.width > (int)ft_strlen(str) && rez.minus)
 	{
-		ft_putstr(str);
-		while (i++ < rez.width - ft_strlen(str))
+		if (rez.accuracy != 0)
+			ft_putstr(str);
+		else
+			ft_putchar(' ');
+		while (i++ < rez.width - (int)ft_strlen(str))
 			ft_putchar(' ');
 	}
 	else if (rez.width > (int)ft_strlen(str) && !rez.minus)
 	{
-		while (i++ < rez.width - ft_strlen(str))
+		while (i++ < rez.width - (int)ft_strlen(str))
 			ft_putchar(' ');
-		ft_putstr(str);
+		if (rez.accuracy != 0)
+			ft_putstr(str);
+		else
+			ft_putchar(' ');
 	}
-	else
+	else if (rez.accuracy != 0)
 		ft_putstr(str);
-	return (i + (int)ft_strlen(str));
 }
-
 unsigned int	ft_get_u(int i)
 {
 	unsigned int j;
@@ -464,27 +458,19 @@ unsigned int	ft_get_u(int i)
 void		ft_var(info rez, va_list list, char *str, int *n)
 {
 	if (rez.spec == 'c' || rez.spec == 'C')
-<<<<<<< HEAD
-		*n = ft_print_c(rez, va_arg(list, int)) - 1;
-	else if (rez.spec == '%')
-		*n = ft_print_per(rez) - 1;
-=======
 		ft_print_c(rez, va_arg(list, int));
->>>>>>> parent of aaee6bc... final pft done
+	else if (rez.spec == '%')
+		ft_print_per(rez);
 	else if (rez.spec == 's' || rez.spec == 'S')
-		*n = ft_print_str(rez, va_arg(list, char*), str) - 1;
+		*n = ft_print_str(rez, va_arg(list, char*), str);
 	else if (ft_strchr("DdIi", rez.spec))
-		*n = ft_print_int(rez, va_arg(list, int), str) - 1;
+		ft_print_int(rez, va_arg(list, int), str);
 	else if (rez.spec == 'U' || rez.spec == 'u')
-		*n = ft_print_uint(rez, ft_get_u(va_arg(list, int)), str) - 1;
+		ft_print_uint(rez, ft_get_u(va_arg(list, int)), str);
 	else if (rez.spec == 'p')
-		*n = ft_print_p(rez, va_arg(list, void*)) - 1;
+		ft_print_p(rez, va_arg(list, void*));
 	else if (rez.spec == 'x' || rez.spec == 'X')
-<<<<<<< HEAD
-		*n = ft_print_x(rez, va_arg(list, long long), str) - 1;
-=======
-		ft_print_x(rez, va_arg(list, int), str);
->>>>>>> parent of aaee6bc... final pft done
+		ft_print_x(rez, va_arg(list, long long), str);
 	// if (rez.spec == 'n')
 	// 	ft_print_n(rez, list);
 	// if (ft_strchr("GgFfEe", rez.spec))
@@ -505,6 +491,11 @@ info			ft_parse_form(char *str, va_list list, info rez, int *n)
 	{
 		rez = ft_getting_flags(str, rez, ptr, list);
 		i++;
+	}
+	if (rez.width < 0)
+	{
+		rez.width = -rez.width;
+		rez.minus = 1;
 	}
 	ft_var(rez, list, str, n);
 

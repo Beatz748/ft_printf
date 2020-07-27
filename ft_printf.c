@@ -7,7 +7,7 @@ int        ft_find_c(char *str)
 	int j;
 
 	i = 0;
-	s = "dDiIsScCuUxXpPgGeEn";
+	s = "dDiIsScCu%UxXpPgGeEn";
 	while (str[i] != '\0')
 	{
 		j = 0;
@@ -43,7 +43,7 @@ int			ft_parse_all(char *format, va_list list)
 			ft_putchar(format[i]);
 		i++;
 	}
-	return (result);
+	return (i);
 }
 
 int    ft_printf(char *format, ...)
