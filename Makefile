@@ -2,7 +2,7 @@ NAME = libftprintf
 
 LIBFT = libft
 
-SRC = ft_parse_form.c ft_printf.c util.c 
+SRC = ft_parse.c ft_printf.c util.c ft_printf_c.c ft_printf_int.c ft_printf_x.c ft_printf_uns.c ft_itoa_super.c
 
 SRC_OBJECTS = $(patsubst %.c,%.o,$(SRC))
 

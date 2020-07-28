@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hwindom <hwindom@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/24 14:20:10 by hwindom           #+#    #+#             */
-/*   Updated: 2020/05/30 05:46:26 by hwindom          ###   ########.fr       */
+/*   Created: 2020/05/26 21:51:38 by kshantel          #+#    #+#             */
+/*   Updated: 2020/05/26 21:51:39 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlen(const char *s)
 
 	len = 0;
 	while (s[len])
+	{
 		len++;
+	}
 	return (len);
 }

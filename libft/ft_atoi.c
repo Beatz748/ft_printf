@@ -3,35 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hwindom <hwindom@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 17:53:44 by hwindom           #+#    #+#             */
-/*   Updated: 2020/05/30 05:46:42 by hwindom          ###   ########.fr       */
+/*   Created: 2020/05/26 14:39:44 by kshantel          #+#    #+#             */
+/*   Updated: 2020/05/29 19:48:40 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(char *str)
-{
-	long			res;
-	long			sign;
-	int				i;
+#include "libft.h"
 
-	res = 0;
-	sign = 1;
+int	ft_atoi(const char *str)
+{
+	size_t				i;
+	int					minus;
+	unsigned long long	number;
+
+	number = 0;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' ||
-			str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
+	minus = 1;
+	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\r' ||
+			str[i] == '\v' || str[i] == '\n' || str[i] == '\t')
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
+	if (str[i] == '-')
+		minus = -1;
+	if (str[i] == '+' || str[i] == '-')
 		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		res = res * 10 + str[i] - '0';
-		i++;
+		if (number < 9223372036854775807)
+			number = number * 10 + str[i++] - 48;
+		if (number > 9223372036854775807 && minus < 0)
+			return (0);
+		else if (number > 9223372036854775807)
+			return (-1);
 	}
-	return ((int)(res * sign));
+	return ((int)(number * minus));
 }

@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hwindom <hwindom@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/26 17:54:59 by hwindom           #+#    #+#             */
-/*   Updated: 2020/05/30 05:46:35 by hwindom          ###   ########.fr       */
+/*   Created: 2020/05/26 21:54:39 by kshantel          #+#    #+#             */
+/*   Updated: 2020/05/29 19:39:06 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*res;
+	char	*new;
+	size_t	x;
 
-	i = 0;
-	if (s == NULL)
+	x = 0;
+	if (!s)
 		return (NULL);
-	if ((unsigned int)(ft_strlen(s)) < start)
+	if (ft_strlen(s) < start)
 		return (ft_strdup(""));
-	res = (char *)malloc(sizeof(char) * len + 1);
-	if (!res)
+	new = (char *)malloc(sizeof(char) * len + 1);
+	if (!new)
 		return (NULL);
-	while (i < len)
+	while (x < len)
 	{
-		res[i] = s[start + i];
-		i++;
+		new[x] = s[start + x];
+		x++;
 	}
-	res[i] = '\0';
-	return (res);
+	new[len] = '\0';
+	return (new);
 }

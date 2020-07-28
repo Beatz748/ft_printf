@@ -3,56 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hwindom <hwindom@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/26 18:00:11 by hwindom           #+#    #+#             */
-/*   Updated: 2020/05/30 05:46:18 by hwindom          ###   ########.fr       */
+/*   Created: 2020/05/26 21:54:27 by kshantel          #+#    #+#             */
+/*   Updated: 2020/05/26 22:03:32 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*get_num(int n, int len, int flag)
+int		ft_intlen(int n)
 {
-	char	*str;
+	int count;
 
-	if (!(str = (char*)malloc(sizeof(*str) * len + 2)))
-		return (NULL);
-	str[len + 1] = '\0';
+	count = 0;
 	if (n == 0)
+		return (1);
+	if (n < 0)
 	{
-		str[0] = '0';
-		return (str);
+		count++;
+		n *= -1;
 	}
-	if (flag == 1)
-		str[0] = '-';
-	while (n != 0)
+	while (n > 0)
 	{
-		str[len] = n % 10 + 48;
-		n = n / 10;
-		len--;
+		n /= 10;
+		count += 1;
 	}
-	return (str);
+	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	int len;
-	int n_len;
-	int flag;
+	char	*str;
+	int		i;
+	int		minus;
 
-	len = 0;
-	flag = 0;
+	minus = 1;
+	i = ft_intlen(n);
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	if (n < 0)
+		minus = -1;
+	n *= minus;
+	if (!(str = malloc(sizeof(char ) * i + 1)))
+		return (NULL);
+	str[i--] = '\0';
+	if (n == 0)
+		str[0] = '0';
+	while (n != 0)
 	{
-		flag = 1;
-		n = -n;
-		len++;
+		str[i] = n % 10 + '0';
+		n /= 10;
+		i--;
 	}
-	n_len = n;
-	while (n_len /= 10)
-		len++;
-	return (get_num(n, len, flag));
+	if (minus == -1)
+		str[0] = '-';
+	return (str);
 }
