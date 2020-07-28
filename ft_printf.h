@@ -20,9 +20,17 @@ typedef struct    info_str
     int            accuracy;
 }                info;
 
+int		ft_abs(int a);
+
+char	*ft_lltoa_u(long long int n);
+
+void	ft_toupper_x(info *rez, char **str);
+
 info    ft_parse_form(char *str, va_list list, info rez, int *n);
 
 int     ft_print_c(info rez, int c);
+
+void				ft_putstr_fd(char *s, int fd);
 
 char	*ft_itoa(long long n);
 
@@ -50,9 +58,9 @@ char	*ft_strcdup(const char *s, int c);
 
 size_t		ft_strlen(const char *s);
 
-int		ft_printf(char *format, ...);
+int		ft_printf(const char *format, ...);
 
-int		ft_parse_all(char *format, va_list list);
+int		ft_parse_all(const char **format, va_list *list);
 
 void		ft_spec(char *str, va_list list);
 
@@ -64,9 +72,9 @@ char		*ft_find_spec(char *s);
 
 void		ft_putnbr(int nbr);
 
-char *ft_ito16(long long int num);
+char	*ft_itoa_hex(long long int n);
 
-info ft_flags_check_x(info rez, char *num, char *str);
+void			ft_flags_check_x(info *rez, char *str);
 
 void		ft_putstr(char *s);
 
@@ -74,6 +82,6 @@ void		ft_putchar(char c);
 
 char        *ft_itoa_16(long long int num);
 
-int		ft_print_x(info rez, long long num, char *str_c);
+int			ft_print_x(info *rez, unsigned int num, char *str_c);
 
 #endif

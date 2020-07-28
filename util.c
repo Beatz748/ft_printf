@@ -1,5 +1,10 @@
 #include "ft_printf.h"
 
+void				ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}
+
 int	ft_atoi(char *str)
 {
 	size_t				i;
@@ -26,6 +31,25 @@ int	ft_atoi(char *str)
 			return (-1);
 	}
 	return ((int)(number * minus));
+}
+
+int		ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
+}
+
+void	ft_toupper_x(info *rez, char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[0][i] && rez->spec == 'X')
+	{
+		str[0][i] = ft_toupper(str[0][i]);
+		i++;
+	}
 }
 
 size_t	ft_strlen(const char *s)
@@ -227,25 +251,62 @@ char	*ft_itoa_16(long long int num)
 	return (str);
 }
 
-char	*ft_ito16(long long int num)
-{
-	char			*itoa16;
-	int				size;
-	char			*str;
-	long long int	k;
 
-	k = num;
-	size = 0;
-	itoa16 = "0123456789abcdef";
-	while (k /= 16)
-		size++;
-	size += 1;
-	str = (char *)malloc(sizeof(char) * size + 1);
-	str[size] = '\0';
-	while (size-- > 0)
+char	*ft_itoa_hex(long long int n)
+{
+	int					i;
+	unsigned long long	j;
+	char				*str;
+	char				*hex;
+
+	j = n;
+	str = "\0";
+	i = (j == 0) ? 1 : 0;
+	hex = "0123456789abcdef";
+	while (j != 0)
 	{
-		str[size] = itoa16[num % 16];
-		num /= 16;
+		j = j / 16;
+		i++;
+	}
+	if (!(str = (char *)malloc(i + 1)))
+		return (NULL);
+	str[i] = '\0';
+	j = n;
+	while (i-- > 0)
+	{
+		str[i] = hex[j % 16];
+		j = j / 16;
+	}
+	return (str);
+}
+
+int		ft_abs(int a)
+{
+	return (a < 0) ? -a : a;
+}
+
+char	*ft_lltoa_u(long long int n)
+{
+	size_t		i;
+	long long	j;
+	char		*str;
+
+	j = n;
+	i = (j == 0) ? 1 : 0;
+	while (j != 0)
+	{
+		j = j / 10;
+		i++;
+	}
+	if (!(str = (char *)malloc(sizeof(char) * i + 1)))
+		return (NULL);
+	str[i] = '\0';
+	j = n;
+	j = (j < 0) ? -j : j;
+	while (i-- > 0)
+	{
+		str[i] = j % 10 + '0';
+		j = j / 10;
 	}
 	return (str);
 }

@@ -22,46 +22,46 @@ int        ft_find_c(char *str)
 	return (0);
 }
 
-int			ft_parse_all(char *format, va_list list)
+int			ft_parse_all(const char **format, va_list *list)
 {
 	int i;
 	int n;
 	int result;
-	info rez;
-	int a;
+	info *rez;
+	char *s;
+
+	s = (char *)*format;
 
 	i = 0;
 	result = 0;
-	while (format[i] != '\0')
+	if (!(rez = (info *)malloc(sizeof(info))))
+		return (-1);
+	while (s[i] != '\0')
 	{
-		if (format[i] == ',')
+		if (s[i] == '%')
 		{
-			a = 1;
-			a += 99;
-		}
-		if (format[i] == '%')
-		{
-			n = ft_find_c(format + i + 1);
-			rez = ft_parse_form(ft_strndup(format + i + 1, n + 1), list, rez, &result);
+			n = ft_find_c(s + i + 1);
+			*rez = ft_parse_form(ft_strndup(s + i + 1, n + 1), *list, *rez, &result);
 			i += n + 1;
 		}
 		else
 		{
-			ft_putchar(format[i]);
+			ft_putchar(s[i]);
 			result++;
 		}
 		i++;
 	}
+	free (rez);
 	return (result);
 }
 
-int    ft_printf(char *format, ...)
+int    ft_printf(const char *format, ...)
 {
 	int i;
 	va_list list;
 
 	va_start(list, format);
-	i = ft_parse_all(format, list);
+	i = ft_parse_all(&format, &list);
 	va_end(list);
 	return (i);
 }
