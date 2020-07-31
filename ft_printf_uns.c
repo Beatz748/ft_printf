@@ -12,14 +12,6 @@
 
 #include "ft_printf.h"
 
-void	ft_flags_chek_uint(t_info *rez, unsigned int j, char *str)
-{
-	if (!(ft_strchr(str, '.')) || rez->accuracy < 0)
-		rez->accuracy = ft_intlen(j);
-	if (rez->minus)
-		rez->nol = 0;
-}
-
 void	ft_printfu(t_info *rez, int *j)
 {
 	while (*j < rez->width)

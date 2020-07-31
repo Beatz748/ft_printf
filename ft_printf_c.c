@@ -6,13 +6,13 @@
 /*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 22:18:18 by kshantel          #+#    #+#             */
-/*   Updated: 2020/07/28 22:25:57 by kshantel         ###   ########.fr       */
+/*   Updated: 2020/08/01 02:12:26 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			ft_print_per(t_info rez)
+int		ft_print_per(t_info rez)
 {
 	int i;
 
@@ -40,36 +40,35 @@ int			ft_print_per(t_info rez)
 	return (i + 1);
 }
 
-int			ft_print_str(t_info rez, char *str, char *for_check)
+int		ft_print_str(t_info *rez, char *str)
 {
-	int i;
+	int		j;
+	int		len;
 
-	i = 0;
-	if (str == NULL)
+	if (!(str))
 		str = "(null)";
-	rez = ft_checking(for_check, rez, str);
-	if (rez.accuracy < (int)ft_strlen(str))
-		str = ft_strndup(str, rez.accuracy);
-	if (rez.width > (int)ft_strlen(str) && rez.minus)
+	len = ft_strlen(str);
+	ft_flags_str(rez, &len);
+	j = len;
+	while (rez->minus == 1 && len--)
 	{
-		ft_putstr(str);
-		while (i++ < rez.width - (int)ft_strlen(str))
-			ft_putchar(' ');
-		i--;
+		write(1, str, 1);
+		str++;
 	}
-	else if (rez.width > (int)ft_strlen(str) && !rez.minus)
+	while (j < rez->width)
 	{
-		while (i++ < rez.width - (int)ft_strlen(str))
-			ft_putchar(' ');
-		i--;
-		ft_putstr(str);
+		write(1, " ", 1);
+		j++;
 	}
-	else
-		ft_putstr(str);
-	return (i + ft_strlen(str));
+	while (rez->minus == 0 && len--)
+	{
+		write(1, str, 1);
+		str++;
+	}
+	return (j);
 }
 
-int			ft_print_c(t_info rez, int c)
+int		ft_print_c(t_info rez, int c)
 {
 	int i;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 02:12:39 by kshantel          #+#    #+#             */
+/*   Updated: 2020/08/01 02:12:41 by kshantel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <stdlib.h>
@@ -5,111 +17,89 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 
-typedef struct		s_info
+typedef	struct	s_info
 {
 	int				nol;
 	int				minus;
 	int				width;
 	char			spec;
 	int				accuracy;
-}					t_info;
+}				t_info;
 
-int			ft_abs(int a);
+int				ft_abs(int a);
 
-char		*ft_lltoa_u(long long int n);
+void			ft_flags_str(t_info *rez, int *len);
 
-void		ft_toupper_x(t_info *rez, char **str);
+char			*ft_lltoa_u(long long int n);
 
-t_info		ft_parse_form(char *str, va_list list, t_info rez, int *n);
+void			ft_toupper_x(t_info *rez, char **str);
 
-int			ft_print_c(t_info rez, int c);
+t_info			ft_parse_form(char *str, va_list list, t_info rez, int *n);
 
-void		ft_putstr_fd(char *s, int fd);
+int				ft_print_c(t_info rez, int c);
 
-char		*ft_uitoa(unsigned int n);
+char			*ft_uitoa(unsigned int n);
 
-t_info		ft_getting_flags(char *str, t_info rez, int *i, va_list list);
+t_info			ft_getting_flags(char *str, t_info rez, int *i, va_list list);
 
-t_info		ft_clear(t_info rez, char *format_mini);
+t_info			ft_clear(t_info rez, char *format_mini);
 
-char		*ft_strchr(const char *s, int c);
+int				ft_intlen(long long n);
 
-char		*ft_strjoin(char const *s1, char const *s2);
+int				ft_uintlen(unsigned int n);
 
-int			ft_intlen(long long n);
+char			*ft_find_c(char *str);
 
-int			ft_uintlen(unsigned int n);
+int				ft_printf(const char *format, ...);
 
-void		*ft_memcpy(void *dst, const void *src, size_t n);
+int				ft_parse_all(const char **format, va_list *list);
 
-int			ft_find_c(char *str);
+void			ft_putnbr(int nbr);
 
-char		*ft_strndup(const char *s1, size_t nb);
+char			*ft_itoa_hex(long long int n);
 
-char		*ft_strcdup(const char *s, int c);
+void			ft_flags_check_x(t_info *rez, char *str);
 
-size_t		ft_strlen(const char *s);
+void			ft_putstr(char *s);
 
-int			ft_printf(const char *format, ...);
+void			ft_putchar(char c);
 
-int			ft_parse_all(const char **format, va_list *list);
+int				ft_print_uint(t_info *rez, unsigned int mini, char *str2);
 
-void		ft_spec(char *str, va_list list);
+t_info			ft_checking(char *str, t_info rez, char *main);
 
-void		ft_put_smth(char c, va_list list);
+int				ft_print_p(t_info *rez, void *ptr);
 
-int			ft_tolower(int c);
+void			ft_print_flags_x(t_info *rez, int *j);
 
-char		*ft_find_spec(char *s);
+void			ft_var(t_info rez, va_list list, char *str, int *n);
 
-void		ft_putnbr(int nbr);
+t_info			ft_parse_form(char *str, va_list list, t_info rez, int *n);
 
-char		*ft_itoa_hex(long long int n);
+int				ft_print_per(t_info rez);
 
-void		ft_flags_check_x(t_info *rez, char *str);
+void			ft_prflagint(t_info *rez, int *res, long long num);
 
-void		ft_putstr(char *s);
+void			ft_prinm(t_info *rez, long long num, int *i, char *s);
 
-void		ft_putchar(char c);
+int				ft_intlen(long long n);
 
-char		*ft_itoa_16(long long int num);
+void			ft_flags_chek_int(t_info *rez, char *str);
 
-int			ft_print_uint(t_info *rez, unsigned int mini, char *str2);
+void			ft_priunm(t_info *rez, long long num, int *i, char *s);
 
-t_info		ft_checking(char *str, t_info rez, char *main);
+void			ft_printfu(t_info *rez, int *j);
 
-int			ft_print_p(t_info *rez, void *ptr);
+int				ft_print_int(t_info *rez, int mini, char *str2);
 
-void		ft_print_flags_x(t_info *rez, int *j);
+int				ft_print_str(t_info *rez, char *str);
 
-void		ft_minus_x(t_info *rez, unsigned long long num, int *i, char *s);
+int				ft_print_c(t_info rez, int c);
 
-void		ft_var(t_info rez, va_list list, char *str, int *n);
+int				ft_mini(char *s, va_list *list, t_info *rez);
 
-t_info		ft_parse_form(char *str, va_list list, t_info rez, int *n);
+t_info			ft_getting_acc(char *str, t_info rez, int *i, va_list list);
 
-int			ft_print_per(t_info rez);
-
-void		ft_prflagint(t_info *rez, int *res, long long num);
-
-void		ft_prinm(t_info *rez, long long num, int *i, char *s);
-
-int			ft_intlen(long long n);
-
-void		ft_flags_chek_int(t_info *rez, char *str);
-
-void		ft_priunm(t_info *rez, long long num, int *i, char *s);
-
-void		ft_printfu(t_info *rez, int *j);
-
-void		ft_flags_chek_uint(t_info *rez, unsigned int j, char *str);
-
-int			ft_print_int(t_info *rez, int mini, char *str2);
-
-int			ft_print_str(t_info rez, char *str, char *for_check);
-
-int			ft_print_c(t_info rez, int c);
-
-int			ft_print_x(t_info *rez, unsigned int num, char *str_c);
+int				ft_print_x(t_info *rez, unsigned int num, char *str_c);
 
 #endif

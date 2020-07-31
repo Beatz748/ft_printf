@@ -6,7 +6,7 @@
 /*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 22:12:47 by kshantel          #+#    #+#             */
-/*   Updated: 2020/07/28 22:12:49 by kshantel         ###   ########.fr       */
+/*   Updated: 2020/08/01 00:08:49 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@ t_info			ft_checking(char *str, t_info rez, char *main)
 	return (rez);
 }
 
+t_info			ft_getting_acc(char *str, t_info rez, int *i, va_list list)
+{
+	if (str[*i + 1] == '*')
+	{
+		rez.accuracy = va_arg(list, int);
+		return (rez);
+	}
+	else
+	{
+		rez.accuracy = ft_atoi(str + *i + 1);
+		*i += ft_intlen(rez.accuracy) + 1;
+		if (*i-- == '0')
+			*i += 1;
+	}
+	return (rez);
+}
+
 t_info			ft_getting_flags(char *str, t_info rez, int *i, va_list list)
 {
 	if (str[*i] == '-')
@@ -43,20 +60,7 @@ t_info			ft_getting_flags(char *str, t_info rez, int *i, va_list list)
 	if (str[*i] == '0')
 		rez.nol = 1;
 	if (str[*i] == '.')
-	{
-		if (str[*i + 1] == '*')
-		{
-			rez.accuracy = va_arg(list, int);
-			return (rez);
-		}
-		else
-		{
-			rez.accuracy = ft_atoi(str + *i + 1);
-			*i += ft_intlen(rez.accuracy) + 1;
-			if (*i-- == '0')
-				*i += 1;
-		}
-	}
+		rez = ft_getting_acc(str, rez, i, list);
 	if ((str[*i] >= '1' && str[*i] <= '9') || str[*i] == '*')
 	{
 		if (str[*i] == '*' && str[*i - 1] != '.')

@@ -34,17 +34,6 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-char	*ft_strndup(const char *s1, size_t nb)
-{
-	char	*dst;
-
-	dst = (char *)malloc(sizeof(char) * (nb + 1));
-	if (dst == NULL)
-		return (NULL);
-	dst[nb] = '\0';
-	return ((char *)ft_memcpy(dst, s1, nb));
-}
-
 int		ft_abs(int a)
 {
 	return (a < 0) ? -a : a;

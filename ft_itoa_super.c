@@ -6,7 +6,7 @@
 /*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 22:10:56 by kshantel          #+#    #+#             */
-/*   Updated: 2020/07/28 22:10:58 by kshantel         ###   ########.fr       */
+/*   Updated: 2020/08/01 02:14:11 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,5 @@ char	*ft_itoa_hex(long long int n)
 		str[i] = hex[j % 16];
 		j = j / 16;
 	}
-	return (str);
-}
-
-char	*ft_itoa_16(long long int num)
-{
-	char			*itoa16;
-	int				size;
-	char			*str;
-	long long int	k;
-
-	k = num;
-	size = 0;
-	itoa16 = "0123456789abcdef";
-	while (k /= 16)
-		size++;
-	size += 1;
-	str = (char *)malloc(sizeof(char) * size + 3);
-	str[size + 2] = '\0';
-	while (size-- > 0)
-	{
-		str[size + 2] = itoa16[num % 16];
-		num /= 16;
-	}
-	str[0] = '0';
-	str[1] = 'x';
 	return (str);
 }
