@@ -6,7 +6,7 @@
 /*   By: kshantel <marvin@21-school.ru>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 22:12:47 by kshantel          #+#    #+#             */
-/*   Updated: 2020/08/01 03:11:50 by kshantel         ###   ########.fr       */
+/*   Updated: 2020/08/01 03:14:36 by kshantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ t_info			ft_checking(char *str, t_info rez, char *main)
 
 t_info			ft_getting_acc(char *str, t_info rez, int *i, va_list list)
 {
-		if (str[*i] == '*' && str[*i - 1] != '.')
-		{
-			rez.width = va_arg(list, int);
-			return (rez);
-		}
-		else if (str[*i] >= '1' && str[*i] <= '9')
-		{
-			(rez.width) = atoi(str + *i);
-			*i += ft_intlen(rez.width) - 1;
-		}
+	if (str[*i] == '*' && str[*i - 1] != '.')
+	{
+		rez.width = va_arg(list, int);
 		return (rez);
+	}
+	else if (str[*i] >= '1' && str[*i] <= '9')
+	{
+		(rez.width) = atoi(str + *i);
+		*i += ft_intlen(rez.width) - 1;
+	}
+	return (rez);
 }
+
 t_info			ft_getting_flags(char *str, t_info rez, int *i, va_list list)
 {
 	if (str[*i] == '-')
